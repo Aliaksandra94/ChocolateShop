@@ -253,7 +253,7 @@
 </style>
 <head>
     <title><spring:message code="title.startPage"/></title>
-    <p align="right"><a title="English" href="?lang=en"><img src="/visual/UK.jpg" width="30px" height="30px"
+    <p align="right"><a title="English" href="?lang=en"><img src="visual/UK.jpg" width="30px" height="30px"
                                                              class="round"></a>
         <a title="Russian" href="?lang=ru"><img src="/visual/RU.png" width="30px" height="30px" class="round"></a></p>
     <a title="English" href="/start"><img src="/visual/images/logo.png" width="150px" height="150px" class="round"></a>
@@ -272,7 +272,7 @@
 <div class="stock-wrap">
     <div class="stock-inner">
         <div class="left">
-            <p><img align="center" src="/visual/gift.png"></p>
+            <p><img align="center" src="/visual/images/gift.png"></p>
         </div>
         <div class="right">
             <h3><span>1</span><span class="text"><spring:message code="sale.startPage"/> </span><sup>%</sup>
