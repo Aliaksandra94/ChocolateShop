@@ -9,18 +9,22 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.moroz")
-@PropertySource(value = "classpath:mysql.properties")
-//@PropertySource(value = "classpath:h2.properties")
+//@PropertySource(value = "classpath:mysql.properties")
+@PropertySource(value = "classpath:h2.properties")
 public class RootConfig {
     private Environment environment;
 
@@ -49,14 +53,47 @@ public class RootConfig {
         basicDataSource.setUrl(environment.getRequiredProperty("datasource.url"));
         basicDataSource.setUsername(environment.getRequiredProperty("datasource.username"));
         basicDataSource.setPassword(environment.getRequiredProperty("datasource.password"));
+
         return basicDataSource;
     }
+//
+//    private static void dropTable(BasicDataSource dataSource)
+//            throws SQLException {
+//        Statement stmt = dataSource.getConnection().createStatement();
+//        String sql = "DROP TABLE IF EXISTS users";
+//        DROP TABLE IF EXISTS users;
+//        DROP TABLE IF EXISTS roles;
+//        DROP TABLE IF EXISTS user_roles;
+//        stmt.executeUpdate(sql);
+//        stmt.close();
+//        System.out.println("Table dropped");
+//
+//    }
+//    private static void insertQuery(BasicDataSource dataSource) throws SQLException {
+//        Statement stmt = dataSource.getConnection().createStatement();
+//        String sql = "INSERT INTO Users VALUES('1','tom','chasing jerry')";
+//        stmt.executeUpdate(sql);
+//        sql = "INSERT INTO Users VALUES('2','jerry','eating chesse')";
+//        stmt.executeUpdate(sql);
+//        stmt.close();
+//
+//    }
+//
+//
+//    private static void createTable(BasicDataSource dataSource)
+//            throws SQLException {
+//        Statement stmt = dataSource.getConnection().createStatement();
+//        String sql = "CREATE TABLE 'Users' ('id'    TEXT,'name' TEXT,'passion'  TEXT,PRIMARY KEY(id));";
+//        stmt.executeUpdate(sql);
+//        stmt.close();
+//        System.out.println("Table created");
+//
+//    }
 
-    @Autowired
     @Bean(name = "sessionFactory")
-    public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
+    public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
+        sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("com.moroz.entity");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;

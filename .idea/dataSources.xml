@@ -10,5 +10,11 @@
         <property name="serverTimezone" value="UTC" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="chocolate_shop" uuid="afdf8d04-96fc-4468-8280-39b02a484444">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:mem:chocolate_shop</jdbc-url>
+    </data-source>
   </component>
 </project>

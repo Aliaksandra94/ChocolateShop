@@ -34,15 +34,6 @@ public class SpringSecurityWebConfig extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
-//    @Bean
-//    public BCryptPasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
-    //    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//    }
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
@@ -51,7 +42,14 @@ public class SpringSecurityWebConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER")
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers( "/**").permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER", "MANAGER")
                 .and()
                 .authorizeRequests().antMatchers("/login**").permitAll()
                 .and()
