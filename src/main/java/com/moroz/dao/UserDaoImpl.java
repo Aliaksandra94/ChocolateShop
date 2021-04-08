@@ -1,5 +1,6 @@
 package com.moroz.dao;
 
+import com.moroz.entity.Role;
 import com.moroz.entity.User;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -9,6 +10,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -25,6 +27,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void addUser(User user) {
         Session session = sessionFactory.getCurrentSession();
+        user.setRoles(Collections.singleton(new Role(1, "ROLE_USER")));
         session.persist(user);
         logger.info("User successfully add. User details: " + user);
     }

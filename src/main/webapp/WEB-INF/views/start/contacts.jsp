@@ -13,7 +13,7 @@ margin: 6px;
     box-sizing: border-box;
 }
 body {
-    background: linear-gradient(to top, #77103a, #ba3372, #fd98c6) fixed;
+    background: linear-gradient(to top, #ffffff, #b5a0a9, #fd98c6) fixed;
     font-family: 'Montserrat Alternates', sans-serif;
 }
 .post-wrap {
